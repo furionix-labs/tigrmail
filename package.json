@@ -1,0 +1,26 @@
+{
+  "name": "mailtiger",
+  "version": "1.0.0",
+  "description": "A package for email verification with link detection",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "jest",
+    "prepare": "npm run build"
+  },
+  "keywords": [
+    "email",
+    "verification",
+    "link",
+    "detection"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/jest": "^29.5.12",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.1.2",
+    "typescript": "^5.3.3"
+  }
+} 
