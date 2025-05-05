@@ -18,12 +18,9 @@ export type MessageFilter = {
 };
 export declare class Tigrmail {
     private token;
-    private debug;
-    constructor({ token, debug }: {
+    constructor({ token }: {
         token: string;
-        debug?: boolean;
     });
     generateInbox(): Promise<string>;
-    private onError;
     pollNextMessage({ inbox, subject, from, }: MessageFilter): Promise<EmailMessage>;
 }

@@ -1,12 +1,7 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.TigrmailError = void 0;
 const axios_1 = require("axios");
-const chalk_1 = __importDefault(require("chalk"));
-const prefix = "🐅 [Tigrmail Error]";
 class TigrmailError extends Error {
     constructor({ error, generalMessage = "", }) {
         var _a, _b;
@@ -31,16 +26,6 @@ class TigrmailError extends Error {
         this.name = this.constructor.name;
         this.generalMessage = generalMessage || techMessage;
         this.techMessage = techMessage;
-    }
-    toString() {
-        if (typeof window !== "undefined") {
-            // browser: collapsible group w/ CSS styling
-            return `${prefix} ${this.message}`;
-        }
-        else {
-            // terminal: chalk‐coloured
-            return `${chalk_1.default.red.bold(prefix)} ${this.message}`;
-        }
     }
 }
 exports.TigrmailError = TigrmailError;

@@ -8,19 +8,14 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Tigrmail = void 0;
 const createInboxApi_1 = require("./createInboxApi");
-const logger_1 = __importDefault(require("./logger"));
 const pollNextMessageApi_1 = require("./pollNextMessageApi");
 const TigrmailError_1 = require("./TigrmailError");
 class Tigrmail {
-    constructor({ token, debug }) {
+    constructor({ token }) {
         this.token = token;
-        this.debug = debug || false;
     }
     generateInbox() {
         return __awaiter(this, void 0, void 0, function* () {
@@ -29,29 +24,12 @@ class Tigrmail {
             })
                 .then((response) => response.inbox)
                 .catch((error) => {
-                this.onError("Failed to generate a new inbox.", error);
                 throw new TigrmailError_1.TigrmailError({
                     generalMessage: `Failed to generate a new inbox.`,
                     error,
                 });
-                throw error;
             });
         });
-    }
-    onError(userFriendlyErrorMessage, originalError) {
-        var _a;
-        if (this.debug) {
-            logger_1.default.error(userFriendlyErrorMessage, originalError);
-            return;
-        }
-        let technicalErrorMessage = "";
-        if (!((_a = originalError.response) === null || _a === void 0 ? void 0 : _a.status)) {
-            technicalErrorMessage = "Network Error";
-        }
-        else {
-            technicalErrorMessage = `${originalError.response.status} ${originalError.response.data.error}`;
-        }
-        logger_1.default.error(`${userFriendlyErrorMessage} ${technicalErrorMessage}`);
     }
     pollNextMessage(_a) {
         return __awaiter(this, arguments, void 0, function* ({ inbox, subject, from, }) {

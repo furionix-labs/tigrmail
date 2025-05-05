@@ -6,5 +6,4 @@ export declare class TigrmailError extends Error {
         error: AxiosError | Error;
         generalMessage?: string;
     });
-    toString(): string;
 }
