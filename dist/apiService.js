@@ -8,7 +8,7 @@ const axios_1 = __importDefault(require("axios"));
 const axios_retry_1 = __importDefault(require("axios-retry"));
 const api = axios_1.default.create({
     baseURL: 'https://api.tigrmail.com',
-    timeout: 120000,
+    timeout: 3 * 60 * 1000, // 3 minutes
     headers: {
         'Content-Type': 'application/json',
     },
