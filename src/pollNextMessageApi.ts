@@ -30,5 +30,5 @@ export const pollNextMessageApi = ({
   const queryString = new URLSearchParams(filterNormalized).toString();
   return api.get(`/v1/messages?${queryString}`, {
     headers: { Authorization: `Bearer ${authToken}` },
-  }).then((response) => response.data);
+  }).then((response) => response.data.message);
 };
