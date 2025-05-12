@@ -2,6 +2,8 @@
   "name": "tigrmail",
   "version": "1.0.5",
   "description": "A package for email verification",
+  "homepage": "https://tigrmail.com",
+  "repository": "github:furionix-labs/tigrmail",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
