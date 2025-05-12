@@ -1,120 +1,83 @@
-# Mailtiger
+<p align="center">
+  <img src="https://tigrmail.com/logo@3x.webp" alt="Tigrmail Logo" width="200" />
+</p>
 
-A package for email verification and management.
+<p align="center">
+  <a href="https://tigrmail.com">Visit our website</a>
+</p>
+
+# Tigrmail SDK
+
+Tigrmail SDK is a Node.js library designed for email verification workflows. It allows you to generate temporary inboxes and poll for email messages with customizable filters. This library is ideal for testing email-based features or automating email verification processes.
+
+## Features
+
+- Generate temporary inboxes.
+- Poll for the next email message with advanced filtering options (e.g., by subject, sender email, or domain).
+- Built-in error handling for API interactions.
+- Automatic retry logic for HTTP requests.
 
 ## Installation
-
 ```bash
-npm install mailtiger
+# Using npm
+npm install tigrmail
+
+# Using yarn
+yarn add tigrmail
 ```
 
 ## Usage
 
+### Importing the Library
+
 ```typescript
-import { mailtiger } from 'mailtiger';
-
-const { createEmail, getEmails } = mailtiger({
-  token: 'your-api-token',
-  maxRetries: 3, // Optional: number of retry attempts (default: 3)
-  timeout: 5000, // Optional: request timeout in milliseconds (default: 5000)
-});
-
-// Create a new email address
-const email = await createEmail();
-console.log(email); // e.g., 'test@mailtiger.com'
-
-// Get all emails
-const allEmails = await getEmails();
-
-// Get emails with subject filter
-const emailsBySubject = await getEmails({ subject: 'Welcome' });
-
-// Get emails with sender filter
-const emailsBySender = await getEmails({ sender: 'support@example.com' });
-
-// Get emails with both filters
-const filteredEmails = await getEmails({ 
-  subject: 'Welcome',
-  sender: 'support@example.com',
-});
+import { Tigrmail } from 'tigrmail';
 ```
 
-## API
+### Creating an Instance
 
-### `mailtiger(config: MailtigerConfig)`
+To use the library, you need to create an instance of `Tigrmail` with your API token:
 
-#### Parameters
-
-- `config`: Configuration object
-  - `token`: API token for authentication (required)
-  - `maxRetries`: Optional number of retry attempts (default: 3)
-  - `timeout`: Optional request timeout in milliseconds (default: 5000)
-
-#### Returns
-
-An object containing:
-- `createEmail`: Function that creates a new email address
-- `getEmails`: Function that retrieves emails with optional filters
-
-### `createEmail(): Promise<string>`
-
-Creates a new email address and returns it.
-
-### `getEmails(params?: EmailSearchParams): Promise<Email[]>`
-
-Retrieves emails with optional filters.
-
-#### Parameters
-
-- `params`: Optional search parameters
-  - `subject`: Filter emails by subject
-  - `sender`: Filter emails by sender
-
-#### Returns
-
-An array of `Email` objects with the following structure:
 ```typescript
-interface Email {
-  id: string;
-  subject: string;
-  sender: string;
-  body: string;
-  receivedAt: string;
+const tigrmail = new Tigrmail({ token: 'your-api-token' });
+```
+
+### Generating a Temporary Inbox
+
+```typescript
+const inbox = await tigrmail.generateInbox(); // <random-email-address>@den.tigrmail.com
+```
+
+### Polling for the Next Email Message
+
+You can poll for the next email message using filters:
+
+```typescript
+const message = await tigrmail.pollNextMessage({
+  inbox,
+  subject: { contains: 'Verification' },
+  from: { email: 'noreply@example.com' },
+});
+
+console.log(`Received email: ${message.subject}`);
+```
+
+## Error Handling
+
+The library throws `TigrmailError` for API-related issues. You can catch and handle these errors as follows:
+
+```typescript
+try {
+  const inbox = await tigrmail.generateInbox();
+} catch (error) {
+  if (error instanceof TigrmailError) {
+    console.error('Error:', error.generalMessage);
+  } else {
+    console.error('Unexpected error:', error);
+  }
 }
 ```
 
-#### API Endpoints
-
-The package makes requests to the following endpoints:
-- `POST /emails`: Create a new email address
-- `GET /emails`: Get all emails
-- `GET /emails?subject=...`: Get emails by subject
-- `GET /emails?sender=...`: Get emails by sender
-- `GET /emails?subject=...&sender=...`: Get emails by both subject and sender
-
-#### Error Handling
-
-The package provides detailed error handling with specific error codes:
-
-- `INVALID_TOKEN` (401): Invalid or expired token
-- `NOT_FOUND` (404): Resource not found
-- `SERVER_ERROR` (5xx): Server error occurred
-- `NETWORK_ERROR`: Network connection failed
-- `TIMEOUT`: Request timed out
-
-#### Retry Logic
-
-The package implements automatic retry logic with exponential backoff for:
-- Server errors (5xx)
-- Network errors
-- Timeout errors
-
-Retry attempts follow this pattern:
-1. First retry: 1 second delay
-2. Second retry: 2 seconds delay
-3. Third retry: 4 seconds delay
-...and so on, up to a maximum delay of 30 seconds
-
 ## License
 
-MIT 
+This project is licensed under the MIT License.
