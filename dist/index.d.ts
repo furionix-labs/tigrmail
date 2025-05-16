@@ -1,1 +1,0 @@
-export { Tigrmail } from "./tigrmail";
