@@ -20,7 +20,7 @@ export class Tigrmail {
     this.token = token;
   }
 
-  async generateInbox(): Promise<string> {
+  async createEmailAddress(): Promise<string> {
     return createInboxApi({
       authToken: this.token,
     })
