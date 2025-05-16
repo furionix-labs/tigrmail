@@ -1,6 +1,6 @@
 {
   "name": "tigrmail",
-  "version": "1.0.6",
+  "version": "1.0.8",
   "description": "API client for creating temporary email addresses to use in your E2E tests with Playwright, Cypress, and other frameworks.",
   "homepage": "https://tigrmail.com",
   "repository": "github:furionix-labs/tigrmail",
@@ -9,7 +9,7 @@
   "scripts": {
     "build": "tsc",
     "test": "jest",
-    "release": "npm run -s build -s && git commit -am $npm_package_version && git tag $npm_package_version && git push && git push --tags && npm publish"
+    "release": "npm run -s build -s && git commit -am $npm_package_version && git tag v$npm_package_version && git push && git push --tags && npm publish"
   },
   "keywords": [
     "tigrmail",

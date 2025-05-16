@@ -17,7 +17,7 @@ class Tigrmail {
     constructor({ token }) {
         this.token = token;
     }
-    generateInbox() {
+    createEmailAddress() {
         return __awaiter(this, void 0, void 0, function* () {
             return (0, createInboxApi_1.createInboxApi)({
                 authToken: this.token,

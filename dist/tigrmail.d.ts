@@ -21,6 +21,6 @@ export declare class Tigrmail {
     constructor({ token }: {
         token: string;
     });
-    generateInbox(): Promise<string>;
+    createEmailAddress(): Promise<string>;
     pollNextMessage({ inbox, subject, from, }: MessageFilter): Promise<EmailMessage>;
 }
