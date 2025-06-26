@@ -3,7 +3,7 @@
 </p>
 
 <p align="center">
-  <a href="https://tigrmail.com">Website</a> |
+  <a href="https://tigrmail.com?utm_source=github&utm_medium=readme">Website</a> |
   <a href="https://docs.tigrmail.com">API Docs</a>
 </p>
 
@@ -40,7 +40,7 @@ import { Tigrmail } from 'tigrmail';
 
 ### Creating an Instance
 
-To use the library, retrieve your API token from [our console](https://console.tigrmail.com) and create a `Tigrmail` instance using that token:
+To use the library, retrieve your API token from [our console](https://console.tigrmail.com?utm_source=github&utm_medium=readme) and create a `Tigrmail` instance using that token:
 
 ```typescript
 const tigrmail = new Tigrmail({ token: 'your-api-token' });
