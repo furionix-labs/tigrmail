@@ -4,7 +4,8 @@
 
 <p align="center">
   <a href="https://tigrmail.com?utm_source=github&utm_medium=readme">Website</a> |
-  <a href="https://docs.tigrmail.com">API Docs</a>
+  <a href="https://docs.tigrmail.com">API Docs</a> |
+  <a href="https://github.com/furionix-labs/playwright-email-verification-example">Demo</a>
 </p>
 
 # Tigrmail SDK
@@ -66,6 +67,10 @@ const message = await tigrmail.pollNextMessage({
 
 console.log(`Received email: ${message.subject}`);
 ```
+
+### Playwright Integration Example
+
+For a complete example of using Tigrmail SDK with Playwright for automated email verification testing, check out our [Playwright Email Verification Example](https://github.com/furionix-labs/playwright-email-verification-example).
 
 ## Error Handling
 
