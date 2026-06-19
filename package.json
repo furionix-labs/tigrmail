@@ -1,6 +1,6 @@
 {
   "name": "tigrmail",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "API client for creating temporary email addresses to use in your E2E tests with Playwright, Cypress, and other frameworks.",
   "homepage": "https://tigrmail.com",
   "repository": "github:furionix-labs/tigrmail",
@@ -41,6 +41,7 @@
   },
   "dependencies": {
     "axios": "^1.9.0",
-    "axios-retry": "^4.5.0"
+    "axios-retry": "^4.5.0",
+    "form-data": "^4.0.6"
   }
 }
