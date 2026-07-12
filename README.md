@@ -18,6 +18,7 @@ Tigrmail SDK is a Node.js library for automating email verification workflows. I
 ## Features
 
 - Generate temporary inboxes.
+- List available inbox domains and create inboxes on a selected domain.
 - Poll for the next email message with advanced filtering options (e.g., by subject, sender email, or domain).
 - Built-in error handling for API interactions.
 - Automatic retry logic for HTTP requests.
@@ -51,7 +52,20 @@ const tigrmail = new Tigrmail({ token: 'your-api-token' });
 
 ```typescript
 const emailAddress: string = await tigrmail.createEmailAddress();
-console.log(emailAddress); // <random-email-address>@den.tigrmail.com
+console.log(emailAddress); // <random-email-address>@<domain>
+```
+
+### Selecting a Domain
+
+```typescript
+const domains: string[] = await tigrmail.getDomains();
+console.log(domains); // ["den.tigrmail.com"]
+
+const emailAddress: string = await tigrmail.createEmailAddress({
+  domain: domains[0],
+});
+
+console.log(emailAddress);
 ```
 
 ### Polling for the Next Email Message
@@ -78,7 +92,7 @@ The library throws `TigrmailError` for API-related issues. You can catch and han
 
 ```typescript
 try {
-  const inbox = await tigrmail.generateInbox();
+  const inbox = await tigrmail.createEmailAddress();
 } catch (error) {
   if (error instanceof TigrmailError) {
     console.error('Error:', error.generalMessage);

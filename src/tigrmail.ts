@@ -1,5 +1,6 @@
 import { AxiosError } from "axios";
 import { createInboxApi } from "./createInboxApi";
+import { getDomainsApi } from "./getDomainsApi";
 import { pollNextMessageApi, EmailMessage } from "./pollNextMessageApi";
 import { TigrmailError } from "./TigrmailError";
 
@@ -20,9 +21,23 @@ export class Tigrmail {
     this.token = token;
   }
 
-  async createEmailAddress(): Promise<string> {
+  async getDomains(): Promise<string[]> {
+    return getDomainsApi({
+      authToken: this.token,
+    })
+      .then((response) => response.domains)
+      .catch((error: AxiosError<{ error: string }>) => {
+        throw new TigrmailError({
+          generalMessage: `Failed to list available domains.`,
+          error,
+        });
+      });
+  }
+
+  async createEmailAddress({ domain }: { domain?: string } = {}): Promise<string> {
     return createInboxApi({
       authToken: this.token,
+      domain,
     })
       .then((response) => response.inbox)
       .catch((error: AxiosError<{ error: string }>) => {
